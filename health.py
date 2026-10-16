@@ -7,7 +7,7 @@ os.makedirs("logs" ,exist_ok=True)
 timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 cpu = psutil.cpu_percent(interval=1)
 ram = psutil.virtual_memory().percent
-disk = psutil.disk_usage("/").percent
+disk = psutil.disk_usage("C:\\").percent
 
 line = f"{timestamp} CPU = {cpu}% RAM={ram}% DISK={disk}%"
 lines_to_write = [line]
