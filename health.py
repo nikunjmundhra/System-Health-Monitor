@@ -10,10 +10,16 @@ ram = psutil.virtual_memory().percent
 disk = psutil.disk_usage("/").percent
 
 line = f"{timestamp} CPU = {cpu}% RAM={ram}% DISK={disk}%"
-print(line)
+lines_to_write = [line]
+
+if cpu > 80:
+    lines_to_write.append(f"{timestamp} WARNING : CPU AT {cpu}%")
+if disk>90:
+    lines_to_write.append(f"{timestamp} WARNING : Disk at {disk}%")
 
 try:
     with open("logs/health.log","a") as f:
-        f.write(line + "\n")
+        for item in lines_to_write:
+            f.write(item + "\n")
 except OSError as e:
     print("could not write log: ", e)
